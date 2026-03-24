@@ -1,0 +1,63 @@
+# macOS / system files
+.DS_Store
+Thumbs.db
+
+# Editor settings
+.idea/
+.vscode/
+.claude/
+CLAUDE.md
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Node dependencies
+node_modules/
+src/node_modules/
+src/renderer/node_modules/
+
+# Build and packaging outputs
+dist/
+build/
+coverage/
+output/
+src/.src-electron-build/
+src/.electron-build/
+src/renderer/dist/
+src/src/dist/
+!src/build/
+src/build/*
+!src/build/icons/
+src/build/icons/*
+!src/build/icons/icon-source.png
+!src/build/icons/icon.icns
+!src/build/icons/generate-macos-icon.sh
+
+# Python / PyInstaller artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.pyinstaller/
+src/dist/backend/
+
+# Project-local caches and temp files
+.cache/
+.temp/
+.worktrees/
+tmp/
+temp/
+src/.bootstrap-cache/
+*.swp
+*.swo
+
+*/superpowers/

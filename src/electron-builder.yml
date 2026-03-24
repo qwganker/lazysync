@@ -1,0 +1,15 @@
+appId: com.lazysync.desktop.next
+productName: LazySync
+directories:
+  output: ../dist
+files:
+  - package.json
+  - .src-electron-build/**/*
+  - renderer/dist/**/*
+extraMetadata:
+  main: .src-electron-build/main/index.js
+mac:
+  icon: build/icons/icon.icns
+  target:
+    - dir
+    - dmg

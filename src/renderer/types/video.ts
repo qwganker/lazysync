@@ -1,0 +1,17 @@
+export type {
+  BilibiliPlatformProfile as RendererBilibiliPlatformProfile,
+  BilibiliProfileConfig as UpdateRendererBilibiliProfileInput,
+  PlatformProfileMap as RendererPlatformProfileMap,
+  VideoPlatform as RendererVideoPlatform,
+  VideoPlatformProfile as RendererVideoPlatformProfile,
+  XiaohongshuProfileConfig as UpdateRendererXiaohongshuProfileInput,
+  XiaohongshuPlatformProfile as RendererXiaohongshuPlatformProfile,
+} from "../../shared/types/platforms";
+export type {
+  CreateVideoAssetInput as CreateRendererVideoInput,
+  ListVideosInput as ListRendererVideosInput,
+  PaginatedVideoDetails as PaginatedRendererVideoDetails,
+  VideoAsset as RendererVideoAsset,
+  VideoDetail as RendererVideoDetail,
+  UpdateVideoAssetInput as UpdateRendererVideoAssetInput,
+} from "../../shared/types/video";

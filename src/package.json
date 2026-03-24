@@ -1,0 +1,56 @@
+{
+  "name": "lazysync",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Desktop app for syncing and publishing content.",
+  "author": "LazySync",
+  "main": ".src-electron-build/main/index.js",
+  "workspaces": [
+    "renderer"
+  ],
+  "scripts": {
+    "dev:web": "npm run -w web dev -- --host 127.0.0.1 --port 5173",
+    "build:web": "npm run -w web build",
+    "build:electron:main": "tsup electron/main/index.ts --format cjs --platform node --target node20 --out-dir .electron-build/main --external electron --clean",
+    "build:electron:preload": "tsup electron/preload/index.ts --format cjs --platform node --target node20 --out-dir .electron-build/preload --external electron",
+    "build:electron": "npm run build:electron:main && npm run build:electron:preload",
+    "build:backend": "python3 -m PyInstaller build/backend.spec --distpath dist/backend --workpath .pyinstaller --noconfirm",
+    "dev:desktop": "wait-on tcp:127.0.0.1:5173 && npm run build:electron && cross-env VITE_DEV_SERVER_URL=http://127.0.0.1:5173 electron .",
+    "dev": "concurrently -k \"npm:dev:web\" \"npm:dev:desktop\"",
+    "dev:src:web": "npm run -w renderer dev -- --host 127.0.0.1 --port 5180",
+    "build:src:web": "npm run -w renderer build",
+    "build:src:electron:main": "tsup main/index.ts --format cjs --platform node --target node20 --out-dir .src-electron-build/main --external electron --external better-sqlite3 --external playwright --clean",
+    "build:src:electron:preload": "tsup preload/index.ts --format cjs --platform node --target node20 --out-dir .src-electron-build/preload --external electron --external better-sqlite3",
+    "build:src:electron": "npm run build:src:electron:main && npm run build:src:electron:preload",
+    "dev:src:desktop": "wait-on tcp:127.0.0.1:5180 && npm run build:src:electron && cross-env SRC_VITE_DEV_SERVER_URL=http://127.0.0.1:5180 electron ./.src-electron-build/main/index.js",
+    "dev:src": "concurrently -k \"npm:dev:src:web\" \"npm:dev:src:desktop\"",
+    "build": "npm run build:src:web && npm run build:src:electron",
+    "dist:desktop": "npm run dist:desktop:dir",
+    "dist:desktop:dir": "npm run build && electron-builder --config electron-builder.yml",
+    "dist:desktop:dmg": "npm run build && electron-builder --config electron-builder.yml --mac dmg",
+    "start": "electron ./.src-electron-build/main/index.js",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vue/test-utils": "^2.4.6",
+    "@electron/rebuild": "^3.7.1",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^24.0.0",
+    "concurrently": "^9.0.1",
+    "cross-env": "^7.0.3",
+    "electron": "^37.2.0",
+    "electron-builder": "^26.0.12",
+    "jsdom": "^26.0.0",
+    "tsup": "^8.2.4",
+    "typescript": "^5.8.3",
+    "vitest": "^2.1.8",
+    "wait-on": "^8.0.1"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.10.0",
+    "npx": "^10.2.2",
+    "playwright": "^1.54.1"
+  }
+}

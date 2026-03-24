@@ -1,0 +1,23 @@
+{
+  "name": "lazysync-renderer-next",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build"
+  },
+  "dependencies": {
+    "@vicons/ionicons5": "^0.13.0",
+    "katex": "^0.16.22",
+    "naive-ui": "^2.43.1",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5",
+    "vue-tsc": "^2.2.12"
+  }
+}
