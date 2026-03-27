@@ -51,112 +51,114 @@ function renderPaginationPrefix({ itemCount }: { itemCount: number | undefined }
         添加视频
       </NButton>
     </div>
-    <table class="video-table">
-      <thead>
-        <tr>
-          <th>标题</th>
-          <th>文件名</th>
-          <th>文件路径</th>
-          <th>添加时间</th>
-          <th>格式</th>
-          <th>操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="video in videos" :key="video.asset.id">
-          <td class="video-table__title-cell">
-            <NTooltip :delay="500">
-              <template #trigger>
-                <span class="video-table__ellipsis">{{ video.asset.title }}</span>
-              </template>
-              {{ video.asset.title }}
-            </NTooltip>
-          </td>
-          <td class="video-table__file-name-cell">
-            <NTooltip :delay="500">
-              <template #trigger>
-                <span class="video-table__ellipsis">{{ video.asset.fileName }}</span>
-              </template>
-              {{ video.asset.fileName }}
-            </NTooltip>
-          </td>
-          <td class="video-table__path-cell">
-            <NTooltip :delay="500">
-              <template #trigger>
-                <span class="video-table__ellipsis">{{ video.asset.localPath }}</span>
-              </template>
-              {{ video.asset.localPath }}
-            </NTooltip>
-          </td>
-          <td class="video-table__time-cell">{{ formatDateTime(video.asset.createdAt) }}</td>
-          <td>{{ video.asset.format ?? "未知格式" }}</td>
-          <td>
-            <div class="video-table__actions">
+    <div class="video-table-scroll">
+      <table class="video-table">
+        <thead>
+          <tr>
+            <th>标题</th>
+            <th>文件名</th>
+            <th>文件路径</th>
+            <th>添加时间</th>
+            <th>格式</th>
+            <th class="video-table__actions-cell video-table__actions-cell--header">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="video in videos" :key="video.asset.id">
+            <td class="video-table__title-cell">
               <NTooltip :delay="500">
                 <template #trigger>
-                  <NButton circle size="small" secondary @click="emit('preview', video)">
-                    <template #icon>
-                      <NIcon>
-                        <PlayOutline />
-                      </NIcon>
-                    </template>
-                  </NButton>
+                  <span class="video-table__ellipsis">{{ video.asset.title }}</span>
                 </template>
-                预览
+                {{ video.asset.title }}
               </NTooltip>
+            </td>
+            <td class="video-table__file-name-cell">
               <NTooltip :delay="500">
                 <template #trigger>
-                  <NButton
-                    circle
-                    size="small"
-                    type="primary"
-                    secondary
-                    :loading="uploadingVideoId === video.asset.id"
-                    @click="emit('upload', video)"
-                  >
-                    <template #icon>
-                      <NIcon>
-                        <CloudUploadOutline />
-                      </NIcon>
-                    </template>
-                  </NButton>
+                  <span class="video-table__ellipsis">{{ video.asset.fileName }}</span>
                 </template>
-                上传
+                {{ video.asset.fileName }}
               </NTooltip>
+            </td>
+            <td class="video-table__path-cell">
               <NTooltip :delay="500">
                 <template #trigger>
-                  <NButton circle size="small" secondary @click="emit('edit', video)">
-                    <template #icon>
-                      <NIcon>
-                        <CreateOutline />
-                      </NIcon>
-                    </template>
-                  </NButton>
+                  <span class="video-table__ellipsis">{{ video.asset.localPath }}</span>
                 </template>
-                编辑
+                {{ video.asset.localPath }}
               </NTooltip>
-              <NPopconfirm @positive-click="emit('delete', video.asset.id)">
-                <template #trigger>
-                  <NTooltip :delay="500">
-                    <template #trigger>
-                      <NButton circle size="small" tertiary type="error" :loading="deletingVideoId === video.asset.id">
-                        <template #icon>
-                          <NIcon>
-                            <TrashOutline />
-                          </NIcon>
-                        </template>
-                      </NButton>
-                    </template>
-                    删除
-                  </NTooltip>
-                </template>
-                确认删除这个视频吗？
-              </NPopconfirm>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            </td>
+            <td class="video-table__time-cell">{{ formatDateTime(video.asset.createdAt) }}</td>
+            <td>{{ video.asset.format ?? "未知格式" }}</td>
+            <td class="video-table__actions-cell">
+              <div class="video-table__actions">
+                <NTooltip :delay="500">
+                  <template #trigger>
+                    <NButton circle size="small" secondary @click="emit('preview', video)">
+                      <template #icon>
+                        <NIcon>
+                          <PlayOutline />
+                        </NIcon>
+                      </template>
+                    </NButton>
+                  </template>
+                  预览
+                </NTooltip>
+                <NTooltip :delay="500">
+                  <template #trigger>
+                    <NButton
+                      circle
+                      size="small"
+                      type="primary"
+                      secondary
+                      :loading="uploadingVideoId === video.asset.id"
+                      @click="emit('upload', video)"
+                    >
+                      <template #icon>
+                        <NIcon>
+                          <CloudUploadOutline />
+                        </NIcon>
+                      </template>
+                    </NButton>
+                  </template>
+                  上传
+                </NTooltip>
+                <NTooltip :delay="500">
+                  <template #trigger>
+                    <NButton circle size="small" secondary @click="emit('edit', video)">
+                      <template #icon>
+                        <NIcon>
+                          <CreateOutline />
+                        </NIcon>
+                      </template>
+                    </NButton>
+                  </template>
+                  编辑
+                </NTooltip>
+                <NPopconfirm @positive-click="emit('delete', video.asset.id)">
+                  <template #trigger>
+                    <NTooltip :delay="500">
+                      <template #trigger>
+                        <NButton circle size="small" tertiary type="error" :loading="deletingVideoId === video.asset.id">
+                          <template #icon>
+                            <NIcon>
+                              <TrashOutline />
+                            </NIcon>
+                          </template>
+                        </NButton>
+                      </template>
+                      删除
+                    </NTooltip>
+                  </template>
+                  确认删除这个视频吗？
+                </NPopconfirm>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <div class="video-table-footer">
       <NPagination
         :page="currentPage"
@@ -181,11 +183,14 @@ function renderPaginationPrefix({ itemCount }: { itemCount: number | undefined }
 }
 
 .video-table-wrapper {
-  overflow-x: auto;
   border: 1px solid rgba(148, 163, 184, 0.18);
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.96);
   box-shadow: 0 10px 24px rgba(148, 163, 184, 0.12);
+}
+
+.video-table-scroll {
+  overflow-x: auto;
 }
 
 .video-table-toolbar {
@@ -269,6 +274,25 @@ function renderPaginationPrefix({ itemCount }: { itemCount: number | undefined }
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.video-table__actions-cell {
+  position: sticky;
+  right: 0;
+  z-index: 1;
+  min-width: 160px;
+  white-space: nowrap;
+  background: #ffffff;
+  box-shadow: -8px 0 12px rgba(15, 23, 42, 0.04);
+}
+
+.video-table__actions-cell--header {
+  z-index: 2;
+  background: #f8fafc;
+}
+
+.video-table tbody tr:hover .video-table__actions-cell {
+  background: #ebf5ff;
 }
 
 .video-table__actions {
