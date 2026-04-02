@@ -7,10 +7,9 @@
 
 > 目前只测试了 *Chrome* 浏览器，其他浏览器暂时未测试
 
-<!-- markdownlint-disable-next-line MD033 -->
-<img src="./docs/img/home.png" alt="home" width="720" />
-<!-- markdownlint-disable-next-line MD033 -->
-<img src="./docs/img/edit_video.png" alt="编辑视频" width="720" />
+
+![x](./docs/img/home.png)
+![x](./docs/img/edit_video.png)
 
 
 ## 支持平台
